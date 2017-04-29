@@ -10,12 +10,16 @@ import com.minecolonies.coremod.entity.ai.basic.AbstractAISkeleton;
 import com.minecolonies.coremod.util.BlockPosUtil;
 import com.minecolonies.coremod.util.Log;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Extra data for Citizens.
@@ -85,6 +89,11 @@ public class CitizenData
     private double experience;
 
     /**
+     * Storage for all recipes this citizen learned.
+     */
+    private Set<CraftingStorage> knowledge;
+
+    /**
      * Create a CitizenData given an ID.
      * Used as a super-constructor or during loading.
      *
@@ -95,6 +104,8 @@ public class CitizenData
     {
         this.id = id;
         this.colony = colony;
+
+        this.knowledge = new HashSet();
     }
 
     /**
@@ -137,6 +148,8 @@ public class CitizenData
         charisma = nbtTagSkillsCompound.getInteger("charisma");
         intelligence = nbtTagSkillsCompound.getInteger("intelligence");
         dexterity = nbtTagSkillsCompound.getInteger("dexterity");
+
+        // TODO Read knowledge
 
         if (compound.hasKey("job"))
         {
@@ -194,7 +207,7 @@ public class CitizenData
         catch (final RuntimeException ex)
         {
             Log.getLogger().error(String.format("A CitizenData.View for #%d has thrown an exception during loading, its state cannot be restored. Report this to the mod author",
-              citizenDataView.getID()), ex);
+                    citizenDataView.getID()), ex);
             citizenDataView = null;
         }
 
@@ -552,6 +565,8 @@ public class CitizenData
         nbtTagSkillsCompound.setInteger(TAG_SKILL_DEXTERITY, dexterity);
         compound.setTag(TAG_SKILLS, nbtTagSkillsCompound);
 
+        // TODO Write knowledge
+
         if (job != null)
         {
             @NotNull final NBTTagCompound jobCompound = new NBTTagCompound();
@@ -606,7 +621,37 @@ public class CitizenData
         buf.writeInt(getIntelligence());
         buf.writeInt(getDexterity());
 
+        // TODO write knowledge?
+
         ByteBufUtils.writeUTF8String(buf, (job != null) ? job.getName() : "");
+    }
+
+    /**
+     * Add a recipe to the knowledge container of the citizen.
+     *
+     * Safe checks if the recipe is known already
+     */
+    public void learnRecipe(CraftingStorage recipe)
+    {
+        // TODO Check if already learned
+        this.knowledge.add(recipe);
+    }
+
+    public boolean knowsRecipe(CraftingStorage recipe)
+    {
+        Optional<CraftingStorage> optional = this.knowledge.stream().filter(r -> r.equals(recipe)).findAny();
+
+        return optional.isPresent();
+    }
+
+    /**
+     * Used to check if this citizen knows how to craft a specific item
+     *
+     * @param item
+     */
+    public void canCraft(Item item)
+    {
+        // TODO body
     }
 
     /**
