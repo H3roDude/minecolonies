@@ -1,0 +1,21 @@
+<window xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        inherit="minecolonies:gui/windowBase.xml"
+        xsi:noNamespaceSchemaLocation="file:../../../../java/com/minecolonies/blockout/blockOut.xsd">
+    <switch id="pages" size="100% 200px" pos="0 7">
+
+        <view id="pageActions" size="100% 200px" pos="0 7">
+            <layout source="minecolonies:gui/layoutWorkerBuildingDefault.xml"/>
+        </view>
+
+        <view id="pageActions" size="100% 200px" pos="0 7">
+            <layout source="minecolonies:gui/layoutCrafterKnowledgeDefault.xml"/>
+        </view>
+    </switch>
+    <button id="prevPage" align="TOP_LEFT" size="20 20" pos="10 5" label="&lt;&lt;"/>
+    <button id="nextPage" align="TOP_RIGHT" size="20 20" pos="10 5" label="&gt;&gt;"/>
+
+
+    <button id="inventory"
+            align="BOTTOM_MIDDLE" size="116 20" pos="0 13"
+            label="$(container.inventory)"/>
+</window>

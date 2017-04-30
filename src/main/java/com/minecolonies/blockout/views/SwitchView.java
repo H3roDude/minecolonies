@@ -155,6 +155,25 @@ public class SwitchView extends View
     }
 
     /**
+     * checks if from the current view there is a next view.
+     *
+     * @return true if there is a next view
+     */
+    public boolean hasNextView()
+    {
+        if (children.isEmpty())
+        {
+            return false;
+        }
+        int index = children.indexOf(currentView) + 1;
+        if (index <= children.size())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Get the last tab/view.
      */
     public void previousView()
@@ -171,5 +190,24 @@ public class SwitchView extends View
         }
 
         setCurrentView(children.get(index));
+    }
+
+    /**
+     * checks if from the current view there is a previous view.
+     *
+     * @return true if there is a previous view
+     */
+    public boolean hasPreviousView()
+    {
+        if (children.isEmpty())
+        {
+            return false;
+        }
+        int index = children.indexOf(currentView) - 1;
+        if (index >= 0)
+        {
+            return true;
+        }
+        return false;
     }
 }

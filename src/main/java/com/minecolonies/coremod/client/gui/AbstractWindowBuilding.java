@@ -83,7 +83,6 @@ public abstract class AbstractWindowBuilding<B extends AbstractBuildingHut.View>
      */
     private void inventoryClicked()
     {
-        MineColonies.getNetwork().sendToServer(new OpenInventoryMessage(building));
     }
 
     /**
@@ -175,17 +174,24 @@ public abstract class AbstractWindowBuilding<B extends AbstractBuildingHut.View>
     @Override
     public void onButtonClicked(@NotNull final Button button)
     {
+        SwitchView paneOfId = findPaneOfTypeByID(VIEW_PAGES, SwitchView.class);
         switch (button.getID())
         {
             case BUTTON_PREVPAGE:
-                findPaneOfTypeByID(VIEW_PAGES, SwitchView.class).previousView();
-                buttonPrevPage.setEnabled(false);
+                paneOfId.previousView();
+                if (!paneOfId.hasPreviousView())
+                {
+                    buttonPrevPage.setEnabled(false);
+                }
                 buttonNextPage.setEnabled(true);
                 break;
             case BUTTON_NEXTPAGE:
-                findPaneOfTypeByID(VIEW_PAGES, SwitchView.class).nextView();
+                paneOfId.nextView();
+                if (!paneOfId.hasNextView())
+                {
+                    buttonNextPage.setEnabled(false);
+                }
                 buttonPrevPage.setEnabled(true);
-                buttonNextPage.setEnabled(false);
                 break;
             default:
                 super.onButtonClicked(button);
