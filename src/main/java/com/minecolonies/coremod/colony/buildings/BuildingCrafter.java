@@ -32,7 +32,7 @@ import java.util.Map;
  *
  * TODO this is a copy of the BuildingBuilder class. Needs to be implemented.
  */
-public class BuildingCrafter extends AbstractBuildingWorker
+public class BuildingCrafter extends AbstractBuildingCrafter
 {
     /**
      * The maximum upgrade of the building.
