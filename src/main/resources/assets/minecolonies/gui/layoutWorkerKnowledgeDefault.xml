@@ -1,4 +1,9 @@
 <layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="file:../../../../java/com/minecolonies/blockout/blockOut.xsd">
+    <itemicon id="input_0_0" size="15 15" pos="0 0">
+    <itemicon id="input_1_0" size="15 15" pos="20 0">
+    <itemicon id="input_0_1" size="15 15" pos="0 20">
+    <itemicon id="input_1_1" size="15 15" pos="20 20">
 
+    <itemicon id="craft_output" size="15 15" pos="30 50">
 </layout>
