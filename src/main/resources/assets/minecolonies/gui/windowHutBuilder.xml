@@ -20,10 +20,11 @@
                     <label  id="resourceQuantity" size="1 1" pos="100 100"/>
                 </box>
             </list>
-
         </view>
 
-
+        <view id="pageActions" size="100% 200px" pos="0 7">
+            <layout source="minecolonies:gui/layoutWorkerKnowledgeDefault.xml"/>
+        </view>
     </switch>
     <button id="prevPage" align="TOP_LEFT" size="20 20" pos="10 5" label="&lt;&lt;"/>
     <button id="nextPage" align="TOP_RIGHT" size="20 20" pos="10 5" label="&gt;&gt;"/>
